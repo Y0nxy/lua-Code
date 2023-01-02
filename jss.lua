@@ -250,7 +250,6 @@ spawn(function()
                                                     if v.Character.Humanoid.WalkSpeed >= 1 then
                                                         if game:GetService("Workspace"):FindFirstChild(Z.Name) then
                                                             Z.HumanoidRootPart.CFrame = game.Workspace["Spar_Ring".._G.RingName]["Player2_Button"].CFrame * CFrame.new(0,0,4)
-                                                            v.Character.HumanoidRootPart.CanCollide = false
                                                         end
                                                     end
                                                 end
@@ -281,9 +280,6 @@ spawn(function()
                                                     if v.Character.Humanoid.WalkSpeed >= 1 then
                                                         if game:GetService("Workspace"):FindFirstChild(Z.Name) then
                                                             v.Character.HumanoidRootPart.CFrame = Z.HumanoidRootPart.CFrame * CFrame.new(0, 0, -2.4)
-                                                            v.Character.Torso.Anchored = true
-                                                            v.Character.Torso.Size = Vector3.new(100,100,100)
-                                                            v.Character.HumanoidRootPart.CanCollide = false
                                                             game:GetService("ReplicatedStorage")["Punch_Input_Spar_Ring".._G.RingName]:FireServer("UpperCut")
                                                             if auto then
                                                                 local foundused = game.Workspace.Player_Information[game.Players.LocalPlayer.Name].Current_Drink.Seconds_Remaining.Value
