@@ -234,22 +234,32 @@ function SCRIPT_ZBUO90_FAKESCRIPT() -- STRToggle.STRToggleScript
     )
 
     spawn(function()
-        for i = 1,150 do
-            game:GetService("RunService").Stepped:Connect(function(step)
-                if ON then
-                    spawn(function()
-                        local char = game.Players.LocalPlayer.Character
-                        char.HumanoidRootPart.CFrame = CFrame.new(-114.229897, 5.90411758, 15.0672808, 0.0325597823, -1.22711201e-08, -0.999469817, 3.39109469e-08, 1, -1.11729115e-08, 0.999469817, -3.35291794e-08, 0.0325597823)
-                        wait()
-                        char.HumanoidRootPart.CFrame = CFrame.new(-114.257141, 11.5830269, 15.0737057, 0.127533361, 1.60539528e-08, -0.991834283, -8.83485463e-09, 1, 1.50501087e-08, 0.991834283, 6.84332102e-09, 0.127533361)
-                        wait()
-                        if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Training_Guis"):FindFirstChild("Stat_Point") then
-                            game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Training_Guis"):FindFirstChild("Stat_Point"):Remove()
+        local rope = game
+        game:GetService("RunService").Stepped:Connect(function(step)
+            if ON then
+                local plr = game:GetService("Players").LocalPlayer
+                local char = plr.Character.HumanoidRootPart
+                char.CFrame = CFrame.new(-114.229897, 5.90411758, 15.0672808, 0.0325597823, -1.22711201e-08, -0.999469817, 3.39109469e-08, 1, -1.11729115e-08, 0.999469817, -3.35291794e-08, 0.0325597823)
+                wait()
+                
+                if rope == game then
+                    for i,v in pairs(game:GetService("Workspace")["{93585e4b-7c8a-4a7c-ac1b-8a1b50548b49}"]:GetChildren()) do
+                        if v.Touched_Bottom:FindFirstChild(plr.Name) then
+                            rope = v
+                            break
                         end
-                    end)
+                    end
+                else 
+                    if rope.Touched_Bottom:WaitForChild(me.Parent.Name).Ready.Value then
+                        char.CFrame = CFrame.new(-114.257141, 11.5830269, 15.0737057, 0.127533361, 1.60539528e-08, -0.991834283, -8.83485463e-09, 1, 1.50501087e-08, 0.991834283, 6.84332102e-09, 0.127533361)
+                    end
+                    wait()
+                    if game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Training_Guis"):FindFirstChild("Stat_Point") then
+                        game:GetService("Players").LocalPlayer.PlayerGui:WaitForChild("Training_Guis"):FindFirstChild("Stat_Point"):Remove()
+                    end
                 end
-            end)
-        end
+            end
+        end)
     end)
 end
 coroutine.resume(coroutine.create(SCRIPT_ZBUO90_FAKESCRIPT))
@@ -273,7 +283,7 @@ function SCRIPT_WDJW90_FAKESCRIPT() -- SPDToggle.SPDToggleScript
                 SPDBttn.BackgroundColor3 = Color3.fromRGB(255, 91, 62)
                 SPDBttn.BorderColor3 = Color3.fromRGB(211, 52, 52)
                 SPDBttn.Text = "OFF"
-                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                game:GetService("Players").LocalPlayer.Character.Head:Remove()
             end
         end
     )
@@ -499,98 +509,94 @@ function SCRIPT_IMQT77_FAKESCRIPT() -- ACCToggle.ACCToggleScript
                 ACCBttn.BackgroundColor3 = Color3.fromRGB(255, 91, 62)
                 ACCBttn.BorderColor3 = Color3.fromRGB(211, 52, 52)
                 ACCBttn.Text = "OFF"
-                game.Players.LocalPlayer.Character.Humanoid.Health = 0
+                game:GetService("Players").LocalPlayer.Character.Head:Remove()
             end
 
-            spawn(
-                function()
-                    while wait(0.1) do
-                        if ON then
-                            pcall(
-                                function()
-                                    local busy = workspace.Players_Busy
-                                    local prompt = game.Players.LocalPlayer.PlayerGui.Training_Guis.Exercise_Prompt
-                                    local excnm = prompt.Exercise_Name
-                                    local H = game.Players.LocalPlayer.Character.Humanoid
-                                    if H.Health > 0 then
-                                        if not busy:FindFirstChild(game.Players.LocalPlayer.Name) then
-                                            spawn(
-                                                function()
-                                                    for i, v in pairs(workspace:GetChildren()) do
-                                                        if game.Players.LocalPlayer.Character then
-                                                            local C = game.Players.LocalPlayer.Character
-                                                            if C:FindFirstChild("HumanoidRootPart") then
-                                                                if
-                                                                    v.Name == "Dummy_Punch1" or
-                                                                        v.Name == "Dummy_Punch2" or
-                                                                        v.Name == "Dummy_Punch3" or
-                                                                        v.Name == "Dummy_Punch4" or
-                                                                        v.Name == "Dummy_Punch5"
-                                                                    then
-                                                                    if
-                                                                        not busy:FindFirstChild(
-                                                                            game.Players.LocalPlayer.Name
-                                                                        )
-                                                                        then
-                                                                        if H.Health > 0 then
-                                                                            if v.In_Use.Value ~= true then
-                                                                                pcall(
-                                                                                    function()
-                                                                                        C.HumanoidRootPart.CFrame =
-                                                                                            v.Touch.CFrame
-                                                                                    end
-                                                                                )
-                                                                                wait(5)
+            spawn(function()
+                while wait(0.1) do
+                    if ON then
+                        pcall(function()
+                            local busy = workspace.Players_Busy
+                            local prompt = game.Players.LocalPlayer.PlayerGui.Training_Guis.Exercise_Prompt
+                            local excnm = prompt.Exercise_Name
+                            local H = game.Players.LocalPlayer.Character.Humanoid
+                            if H.Health > 0 then
+                                if not busy:FindFirstChild(game.Players.LocalPlayer.Name) then
+                                    spawn(
+                                        function()
+                                            for i, v in pairs(workspace:GetChildren()) do
+                                                if game.Players.LocalPlayer.Character then
+                                                    local C = game.Players.LocalPlayer.Character
+                                                    if C:FindFirstChild("HumanoidRootPart") then
+                                                        if
+                                                            v.Name == "Dummy_Punch1" or
+                                                                v.Name == "Dummy_Punch2" or
+                                                                v.Name == "Dummy_Punch3" or
+                                                                v.Name == "Dummy_Punch4" or
+                                                                v.Name == "Dummy_Punch5"
+                                                            then
+                                                            if
+                                                                not busy:FindFirstChild(
+                                                                    game.Players.LocalPlayer.Name
+                                                                )
+                                                                then
+                                                                if H.Health > 0 then
+                                                                    if v.In_Use.Value ~= true then
+                                                                        pcall(
+                                                                            function()
+                                                                                C.HumanoidRootPart.CFrame =
+                                                                                    v.Touch.CFrame
                                                                             end
-                                                                        end
+                                                                        )
+                                                                        wait(5)
                                                                     end
                                                                 end
                                                             end
                                                         end
                                                     end
                                                 end
-                                            )
-                                            for i = 1, 5 do
-                                                if excnm.Value == "Dummy_Punch" .. i then
-                                                    game:GetService("ReplicatedStorage")["Strength_Exercises"][
-                                                        "Dummy_Punch" .. i
-                                                    ]:FireServer()
-                                                end
-                                            end
-                                        else
-                                            wait(.2)
-                                            for i, v in pairs(workspace:GetDescendants()) do
-                                                if v:IsA("ClickDetector") then
-                                                    fireclickdetector(v)
-                                                end
                                             end
                                         end
-                                        spawn(
+                                    )
+                                    for i = 1, 5 do
+                                        if excnm.Value == "Dummy_Punch" .. i then
+                                            game:GetService("ReplicatedStorage")["Strength_Exercises"][
+                                                "Dummy_Punch" .. i
+                                            ]:FireServer()
+                                        end
+                                    end
+                                else
+                                    wait(.2)
+                                    for i, v in pairs(workspace:GetDescendants()) do
+                                        if v:IsA("ClickDetector") then
+                                            fireclickdetector(v)
+                                        end
+                                    end
+                                end
+                                spawn(
+                                    function()
+                                        pcall(
                                             function()
-                                                pcall(
-                                                    function()
-                                                        wait(10)
-                                                        local Points =
-                                                            game.Players.LocalPlayer.PlayerGui.Training_Guis
-                                                        for i, v in pairs(Points:GetChildren()) do
-                                                            if
-                                                                v.Name == "Stat_Point" and
-                                                                    not v:FindFirstChild("Show_Point")
-                                                                then
-                                                                v:Remove()
-                                                            end
-                                                        end
+                                                wait(10)
+                                                local Points =
+                                                    game.Players.LocalPlayer.PlayerGui.Training_Guis
+                                                for i, v in pairs(Points:GetChildren()) do
+                                                    if
+                                                        v.Name == "Stat_Point" and
+                                                            not v:FindFirstChild("Show_Point")
+                                                        then
+                                                        v:Remove()
                                                     end
-                                                )
+                                                end
                                             end
                                         )
                                     end
-                                end
-                            )
-                        end
+                                )
+                            end
+                        end)
                     end
                 end
-            )
+            end)
         end
     )
 end
